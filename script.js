@@ -1,4 +1,4 @@
-// get students.js <---------doesn't work 😩 How do I get the other js-file? 
+// get students.js
 const getFriends = (callback) => {
   const request = new XMLHttpRequest();
   request.addEventListener('readystatechange', () => { 
@@ -15,13 +15,20 @@ const getFriends = (callback) => {
 
 // shuffle students
 const shuffleArray = (array) => {
-  for (let i = array.length -1; 1 >0; i--) {
-    const j = Math.floor(Math.rancom() * (1 + 1));
+  for (let i = array.length -1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
     const temp = array[i];
     array[i] = array[j];
     array[j] = temp;
   }
 };
+shuffleArray(students); 
 
-shuffleArray(students);
+/*
+// output for test
+console.log(students[1].name); // it's works!👍
+*/
+
+// insert foto in HTML
+document.querySelector('#foto_container').innerHTML = `<img src=${students[0].image} >`;
 
