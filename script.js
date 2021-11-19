@@ -25,17 +25,16 @@ const shuffleArray = (array) => {
 // shuffle students list in students.js
 shuffleArray(students); 
 
-/*
+
 // output for test
-console.log(students[1].name); // it's works!👍
-*/
+//console.log(students[1].name); // it's works!👍
+
 
 // insert foto in HTML
 document.querySelector('#foto_container').innerHTML = `<img src=${students[0].image}>`; //show up a random picture of array[0]
-/*
+
 // output for test if image has collect students name
-console.log(students[0].name); // it's works!👍
-*/
+//console.log(students[0].name); // it's works!👍
 
 
 // insert answer button (atudents name) in HTML
@@ -56,4 +55,10 @@ console.log(html)
 document.querySelector('.answers').innerHTML = html;
 
 
+// add click button event
 
+// use 'filter' and 'map' to check collect/ wrong answer.
+
+// insert points
+
+// insert 'cheat-button' 
