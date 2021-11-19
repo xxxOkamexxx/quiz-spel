@@ -1,16 +1,5 @@
-// // get students.js <---- didn't need
-// const getFriends = (callback) => {
-//   const request = new XMLHttpRequest();
-//   request.addEventListener('readystatechange', () => { 
-//      if(request.readyState === 4 && request.status === 200){
-//        callback();
-//      } else if(request.readyState === 4){
-//        callback();
-//      }
-//   });
-//   request.open("GET", "students.js");
-//   request.send();
-// };
+const imagEl = document.querySelector('#foto_container');
+const answerButtonsEl = document.querySelector('.answers');
 
 
 // function for shuffle array
@@ -24,15 +13,12 @@ const shuffleArray = (array) => {
 };
 // shuffle students list in students.js
 shuffleArray(students); 
-
-
 // output for test
 //console.log(students[1].name); // it's works!👍
 
-
-// insert foto in HTML
-document.querySelector('#foto_container').innerHTML = `<img src=${students[0].image}>`; //show up a random picture of array[0]
-
+// insert foto in HTML           <-------------------------
+imagEl.innerHTML = `<img class="col-12" src=${students[0].image}>`; //show up a random picture of array[0] 
+let collectAnswer = students[0].name
 // output for test if image has collect students name
 //console.log(students[0].name); // it's works!👍
 
@@ -43,22 +29,36 @@ let answers = [];
 for(i = 0; i < 4; i++ ){
   answers.push(students[i].name);  
 }
-// shuffle answers
+// shuffle answer buttons
 shuffleArray(answers);  
 
 let html = ``;
 answers.forEach(answer =>{
   console.log(answer); // ok👍
-  html +=  `<li class="btn btn-outline-secondary">${answer}</li>`
+  html +=  `<li class="btn btn-outline-secondary col-md-5">${answer}</li>`
 });
 console.log(html)
-document.querySelector('.answers').innerHTML = html;
+answerButtonsEl.innerHTML = html; //<----------------
 
 
-// add click button event
+// add click answer-button event
+answerButtonsEl.addEventListener('click', e=> {
+  //output for controll 'click'
+  //console.log(`clicked ${e.target.tagName}`,e.target);
+  
+  //if answer is collect
+  if(e.target.textContent === students[0].name){
+    console.log("Collect! 🥳"); 
+
+  } else {
+    console.log(" 😩 ");
+  }
+
+});
 
 // use 'filter' and 'map' to check collect/ wrong answer.
 
 // insert points
+document.querySelector('#point').innerHTML = `<p id="score" class="text-center">YOU HAVE COLLECT <strong>X</strong> OF 10!</p>`;
 
-// insert 'cheat-button' 
+// insert cheat-button

@@ -12,30 +12,41 @@
     <title>Quiz-spel</title>
 </head>
 <body>
-    <h1>Quiz spel FED21</h1>
+    <header class="text-center">
+        <h1>Quiz spel FED21</h1>
+        <p>Guess the name of our classmates!</p>
+    </header>
 
-    <div id="container" class=" col-sm-12 col-md-10 col-lg-10">
-    
-        <p id="score"></p>
+    <div id="container" class="col-12">  
+        
+        <div id="point" class="col-12">
+            <!--
+            <p id="score" class="text-center">YOU HAVE COLLECT <strong>X</strong> OF 10!</p>
+            -->
+        </div>
 
-        <div id="quiz-wrapper"> 
-            <div id="foto_container">
+        <div id="quiz-wrapper" class="d-flex flex-column flex-lg-row justify-content-center"> 
+           
+            <div id="foto_container" class="col-8 col-md-6 col-lg-4 align-self-center">
                 <!--
-                <img id="photos" src="" alt="">
+                <img id="photos" class="col-12" src="photo01.jpg" alt="">
                 -->
             </div>
             
-            <ul class="answers">
+            <ul class="answers d-flex flex-column flex-md-row flex-md-wrap justify-content-center">
                 <!--
-                <li>Answer 1</li>
-                <li>Answer 2</li>
-                <li>Answer 3</li>
-                <li>Answer 4</li>
+                <li class="btn btn-outline-secondary col-md-5">Answer 1</li>
+                <li class="btn btn-outline-secondary col-md-5">Answer 2</li>
+                <li class="btn btn-outline-secondary col-md-5">Answer 3</li>
+                <li class="btn btn-outline-secondary col-md-5">Answer 4</li>
                 -->
             </ul>
 
         </div>
     </div> 
+    <footer class="text-center">
+        <p>Chikage Molander</p>
+    </footer>
 
     <script src="students.js"></script>
     <script src="script.js"></script>
