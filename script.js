@@ -13,7 +13,7 @@
 // };
 
 
-// shuffle students list in students.js
+// function for shuffle array
 const shuffleArray = (array) => {
   for (let i = array.length -1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -22,6 +22,7 @@ const shuffleArray = (array) => {
     array[j] = temp;
   }
 };
+// shuffle students list in students.js
 shuffleArray(students); 
 
 /*
@@ -47,7 +48,6 @@ for(i = 0; i < 4; i++ ){
 shuffleArray(answers);  
 
 let html = ``;
-
 answers.forEach(answer =>{
   console.log(answer); // ok👍
   html +=  `<li class="btn btn-outline-secondary">${answer}</li>`
