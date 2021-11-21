@@ -19,42 +19,47 @@ const shuffleArray = (array) => {
 const uppdateScore = (correct) => {
   scoreEl.innerHTML = `You are correct for <strong>${correct}</strong> of 10 questions!`;
 };
-
+ // reset score
+correct = 0; // <----- 動かない！！！！😫
 
 // start new Game　　
-const startNewGame = (() => {
-  //
-  correctAnswer = playGame();// <----------　クイズ処理後の関数呼び出し？
-
-  // reset score
-  correct = 0; // <----- 動かない！！！！😫
-});
-uppdateScore();
+// const startNewGame = (() => {
+//   //
+//   correctAnswer = playGame();// <----------　クイズ処理後の関数呼び出し？ 
+// });
+uppdateScore(correct);
 
 
 const playGame = (()=>{
   // shuffle students list in students.js <------ *
-  shuffleArray(students); 
-  // output for test
-  //console.log(students[1].name); // it's works!👍
+ console.log('before');
+ shuffleArray(students); 
+ // output for test
+ //console.log(students[1].name); // it's works!👍
 
-  // insert foto in HTML 
-  imagEl.innerHTML = `<img class="col-12" src=${students[0].image}>`; //show up a random picture of array[0] 
+ // insert foto in HTML 
+ imagEl.innerHTML = `<img class="col-12" src=${students[0].image}>`; //show up a random picture of array[0] 
 
-  let correctAnswer = students[0].name;
-  // output for test if image has correct students name
-  //console.log(students[0].name); // it's works!👍
+ let correctAnswer = students[0].name;
+ // output for test if image has correct students name
+console.log(students[0].name); // it's works!👍 <-------- *
 
 
-  // insert answer button (atudents name) in HTML
-  //shuffule a correct name and 3 more random names.
+ // insert answer button (atudents name) in HTML
+ //shuffule a correct name and 3 more random names.
+ 
+ 
+
   let answers = [];
   for(i = 0; i < 4; i++ ){
-    answers.push(students[i].name);  
+    answers.push(students[i].name); 
+    console.log('loop',[i]); 
   }
+  
 
-  // shuffle answer buttons
-  shuffleArray(answers);  
+console.log('answers', answers);
+ // shuffle answer buttons
+ shuffleArray(answers);   // <-------- *
 
   let html = ``;
   
@@ -72,18 +77,22 @@ const playGame = (()=>{
     //console.log(`clicked ${e.target.tagName}`,e.target);
     
     //if answer is correct
+    console.log({'e.target': e.target.textContent, correctAnswer});
     if(e.target.textContent === correctAnswer){
+      correct ++;
+      answers = [];
       console.log("Correct! 🥳"); // <---------　正解したらポイントカウンターcorrect +１
 
     } else {
+      answers = [];
       console.log(" 😩 "); // <---------　ここまで
     }
-
-    playGame();
+ console.log('play game 1');
+ playGame();
   });
-
+  
 });
-
+console.log('play game 2');
 playGame();
 
 
