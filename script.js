@@ -22,13 +22,13 @@ const uppdateScore = (correct) => {
 
 
 // start new Game　　
-const startNewGame = () => {
+const startNewGame = (() => {
   //
   correctAnswer = playGame();// <----------　クイズ処理後の関数呼び出し？
 
   // reset score
-  correct = 0;
-}
+  correct = 0; // <----- 動かない！！！！😫
+});
 uppdateScore();
 
 
@@ -41,7 +41,7 @@ const playGame = (()=>{
   // insert foto in HTML 
   imagEl.innerHTML = `<img class="col-12" src=${students[0].image}>`; //show up a random picture of array[0] 
 
-  let correctAnswer = students[0].name
+  let correctAnswer = students[0].name;
   // output for test if image has correct students name
   //console.log(students[0].name); // it's works!👍
 
@@ -59,7 +59,7 @@ const playGame = (()=>{
   let html = ``;
   
   answers.forEach(answer =>{
-    console.log(answer); // ok👍
+    //console.log(answer); // ok👍
     html +=  `<li class="btn btn-outline-secondary col-md-5">${answer}</li>`
   });
   //console.log(html)
