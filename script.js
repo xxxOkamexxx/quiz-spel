@@ -1,6 +1,8 @@
 const scoreEl = document.querySelector('#score');
 const imagEl = document.querySelector('#foto_container');
 const answerButtonsEl = document.querySelector('.answers');
+const nextButtonEl = document.querySelector('#nextButton');
+const quitButtonEl = document.querySelector('#quit-game-button');
 
 
 // function for shuffle array
@@ -108,20 +110,27 @@ answerButtonsEl.addEventListener('click', e=> {
   uppdateScore(correct, questions);
 });
 
-startNewGame();
-
-answerButtonsEl.addEventListener('reset', e => {
-  // start new game
-  startNewGame();
-
-  // uppdate DOM 
-  uppdateScore(correct, questions);
-
-  // emptiy previous result
-  
-  
+nextButtonEl.addEventListener('click', e=> {
+  //output for controll 'click'
+  console.log(`clicked ${e.target.tagName}`,e.target);
+  getQuestions();
 });
 
 
+
+
+quitButtonEl.addEventListener('reset', e => {
+  //output for controll 'click'
+  console.log(`reset ${e.target.tagName}`,e.target);
+  // start new game
+  startNewGame();
+
+  // emptiy previous result
+  correct = 0;
+  questions = 0;
+  uppdateScore(correct,questions); 
+
+});
+startNewGame();
 // use 'filter' and 'map' to check correct/ wrong answer.
 // insert cheat-button
