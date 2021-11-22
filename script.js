@@ -4,14 +4,14 @@ const answerButtonsEl = document.querySelector('.answers');
 
 
 // function for shuffle array
-const shuffleArray = (array) => {
+const shuffleArray = ((array) => {
   for (let i = array.length -1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     const temp = array[i];
     array[i] = array[j];
     array[j] = temp;
   }
-};
+});
 
 
 
@@ -26,9 +26,9 @@ let questions;
 
 
 // start new Game　　
-const startNewGame = () => {
+const startNewGame = (() => {
   // get random students info
-  correctAnswer = getQuestions();
+  getQuestions();
   
   // reset number of correct answer to 0
   correct = 0;
@@ -37,10 +37,8 @@ const startNewGame = () => {
   questions = 0;
 
   console.log('correct answer in startneewGame:', correctAnswer); 
-};
- 
+});
 
-uppdateScore();
 
 let correctAnswer;
 
@@ -88,42 +86,41 @@ answerButtonsEl.addEventListener('click', e=> {
   //output for controll 'click'
   //console.log(`clicked ${e.target.tagName}`,e.target);
   
-  e.preventDefault(); // <------ ? need it?
-  
+  //e.preventDefault(); // <------ ? need it?
   console.log('correct answer in addEventListener:', correctAnswer); 
+  // count questions
   questions ++;
 
   // check if answer is correct
-  console.log({'e.target': e.target.textContent, correctAnswer});
+  console.log({'e.target': e.target.textContent, correctAnswer
+  });
   if(e.target.textContent === correctAnswer){
+    // count correct answer
     correct ++;
-    uppdateScore(correct);
-    //answers = [];
-    console.log("Correct! 🥳"); // <---------　正解したらポイントカウンターcorrect +１
+    
+    console.log("Correct! 🥳"); 
 
   } else {
-    //answers = [];
-    console.log(" 😩 "); // <---------　ここまで
+    
+    console.log(" Wrong😩 "); // <---------　ここまで
   }
-
   // クリック後、正解を表示する（正解ボタン=緑、不正解ボタン=赤）
-  getQuestions();
+  uppdateScore(correct, questions);
 });
 
 startNewGame();
-
 
 answerButtonsEl.addEventListener('reset', e => {
   // start new game
   startNewGame();
 
   // uppdate DOM 
-  uppdateScore();
+  uppdateScore(correct, questions);
 
   // emptiy previous result
   
+  
 });
-
 
 
 // use 'filter' and 'map' to check correct/ wrong answer.
