@@ -3,7 +3,7 @@ const imagEl = document.querySelector('#foto_container');
 const answerButtonsEl = document.querySelector('.answers');
 const nextButtonEl = document.querySelector('#nextButton');
 const quitButtonEl = document.querySelector('#quit-game-button');
-
+const checkbuttonsEl = document.querySelectorAll('.checkAnswer');
 
 // function for shuffle array
 const shuffleArray = ((array) => {
@@ -86,37 +86,43 @@ const getQuestions = () => {
 // add click answer-button event
 answerButtonsEl.addEventListener('click', e=> {
   //output for controll 'click'
-  //console.log(`clicked ${e.target.tagName}`,e.target);
+  
+  console.log(`clicked tagName, e.taget: ${e.target.tagName}`,e.target);
   
   //e.preventDefault(); // <------ ? need it?
-  console.log('correct answer in addEventListener:', correctAnswer); 
+  console.log('correct answer in addEventListener:', correctAnswer);
+   
   // count questions
   questions ++;
-
   // check if answer is correct
-  console.log({'e.target': e.target.textContent, correctAnswer
-  });
+  console.log({'e.target': e.target.textContent, correctAnswer});
   if(e.target.textContent === correctAnswer){
     // count correct answer
     correct ++;
-    
-    console.log("Correct! 🥳"); 
+
+    console.log("Correct! 🥳");
+
+    e.target.classList.remove('btn-outline-secondary');
+    e.target.classList.add('btn-success');
 
   } else {
-    
     console.log(" Wrong😩 "); // <---------　ここまで
+
+    e.target.classList.remove('btn-outline-secondary');
+    e.target.classList.add('btn-danger');
   }
   // クリック後、正解を表示する（正解ボタン=緑、不正解ボタン=赤）
+
   uppdateScore(correct, questions);
 });
+
+
 
 nextButtonEl.addEventListener('click', e=> {
   //output for controll 'click'
   console.log(`clicked ${e.target.tagName}`,e.target);
   getQuestions();
 });
-
-
 
 
 quitButtonEl.addEventListener('reset', e => {
