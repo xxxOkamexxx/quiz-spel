@@ -44,6 +44,7 @@ const startNewGame = (() => {
 
   uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer); 
+
 });
 
 
@@ -151,15 +152,20 @@ nextButtonEl.addEventListener('click', e=> {
 
 // quit Game
 quitButtonEl.addEventListener('click', e => {
-  // //output for controll 'click'
-  // console.log(`reset ${e.target.tagName}`,e.target);
-  // // start new game
-  startNewGame();
+  
+  // calculate the highest point
+  const point = Math.round(correct / questions * 100) + '%';
+  
+  // #answers-container invisible
+  document.querySelector('#answers-container').classList.add('invisible')
 
-  // // emptiy previous result
-  // correct = 0;
-  // questions = 0;
-  // uppdateScore(correct,questions); 
+  imagEl.innerHTML = `<h2 class="text-center">YOUR SCORE IS ${point}!</h2><button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+
+  document.querySelector('#start-game-button').addEventListener('click', e => {
+    // #answers-container visible
+    document.querySelector('#answers-container').classList.remove('invisible');
+    startNewGame();
+  });
 
 });
 startNewGame();
@@ -171,6 +177,5 @@ cheatButtonEl.addEventListener('click', e => {
 
 // use 'filter' and 'map' to check correct/ wrong answer？
 
-// calculate the highest point
-Math.round(correct / questions * 100) + '%'
+// Probrem! quitの後new gameの最初のページで４択ボタンが押せない
 

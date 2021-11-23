@@ -33,6 +33,9 @@ li{
 .disabled{
     pointer-events: none;
 }
+.invisible{
+    visibility: hidden;
+}
 footer{
     background-color: gold;
     padding: 5%;
