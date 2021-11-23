@@ -3,7 +3,7 @@ const imagEl = document.querySelector('#foto_container');
 const answerButtonsEl = document.querySelector('.answers');
 const nextButtonEl = document.querySelector('#nextButton');
 const quitButtonEl = document.querySelector('#quit-game-button');
-const checkbuttonsEl = document.querySelectorAll('.checkAnswer');
+
 
 // function for shuffle array
 const shuffleArray = ((array) => {
@@ -38,8 +38,10 @@ const startNewGame = (() => {
   // reset number of questions
   questions = 0;
 
+  uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer); 
 });
+
 
 
 let correctAnswer;
@@ -57,7 +59,7 @@ const getQuestions = () => {
 
   correctAnswer = students[0].name;
   // output for test if image has correct students name
-  console.log('correct answer:', correctAnswer); // it's works!👍 <-------- *
+  console.log('correct answer:', correctAnswer); // it's works!👍 
 
   // insert answer button (atudents name) in HTML
   //shuffule a correct name and 3 more random names.
@@ -69,7 +71,7 @@ const getQuestions = () => {
 
   console.log('answers', answers);
   // shuffle answer buttons
-  shuffleArray(answers);   // <-------- *
+  shuffleArray(answers);
 
   let html = ``;
 
@@ -78,67 +80,76 @@ const getQuestions = () => {
     html +=  `<li class="btn btn-outline-secondary col-md-5">${answer}</li>`
   });
   //console.log(html)
-  answerButtonsEl.innerHTML = html;  // <------- *
+  answerButtonsEl.innerHTML = html;  // <------- * new
 
 };
 
-
 // add click answer-button event
-answerButtonsEl.addEventListener('click', e=> {
+answerButtonsEl.addEventListener('click', e=> {  
   
-  e.preventDefault();
-
-  //output for controll 'click'
-  console.log(`clicked tagName, e.taget: ${e.target.tagName}`,e.target);
-
-  
-  console.log('correct answer in addEventListener:', correctAnswer);
+  //Check if clicked on a LI element
+  if(e.target.tagName === 'LI'){
     
-  // count questions
-  questions ++;
-  // check if answer is correct
-  console.log({'e.target': e.target.textContent, correctAnswer});
-  if(e.target.textContent === correctAnswer){
-    // count correct answer
-    correct ++;
+    const checkbuttonsEl = true;
 
-    console.log("Correct! 🥳");
 
-    // change button color if answer is correct
-    e.target.classList.remove('btn-outline-secondary');
-    e.target.classList.add('btn-success');
+    //output for controll 'click'
+    console.log(`clicked tagName , e.taget: ${e.target.tagName}`,e.target);
+    
+    console.log('correct answer in addEventListener:', correctAnswer);
+      
+    // count questions
+    questions ++;
+    // check if answer is correct
+    console.log({'e.target': e.target.textContent, correctAnswer});
+    if(e.target.textContent === correctAnswer){
+      // count correct answer
+      correct ++;
+      console.log("Correct! 🥳");
+      // change button color if answer is correct
+      e.target.classList.remove('btn-outline-secondary');
+      e.target.classList.add('btn-success');
+    } else {
+      console.log(" Wrong😩 "); 
+      // change button color if answer is wrong
+      e.target.classList.remove('btn-outline-secondary');
+      e.target.classList.add('btn-danger');
+    }
 
-  } else {
-    console.log(" Wrong😩 "); 
+    console.log(typeof checkbuttonsEl);
+    console.log(checkbuttonsEl);
+      // クリックした後他の選択ボタンを押せないようにしたい <--- * new  .disabled?      
+      if(checkbuttonsEl === true){
+        //console.log('clicked'); // ok
+        answerButtonsEl.classList.add('disabled');     
+      }else{
+        answerButtonsEl.classList.remove('disabled');  
+      }
 
-    // change button color if answer is wrong
-    e.target.classList.remove('btn-outline-secondary');
-    e.target.classList.add('btn-danger');
   }
+  
   uppdateScore(correct, questions);
   
 });
 
-// クリックした後他の選択ボタンを押せないようにしたい
-
-
 nextButtonEl.addEventListener('click', e=> {
   //output for controll 'click'
+  answerButtonsEl.classList.remove('disabled');  
   console.log(`clicked ${e.target.tagName}`,e.target);
   getQuestions();
 });
 
 
 quitButtonEl.addEventListener('click', e => {
-  //output for controll 'click'
-  console.log(`reset ${e.target.tagName}`,e.target);
-  // start new game
+  // //output for controll 'click'
+  // console.log(`reset ${e.target.tagName}`,e.target);
+  // // start new game
   startNewGame();
 
-  // emptiy previous result
-  correct = 0;
-  questions = 0;
-  uppdateScore(correct,questions); 
+  // // emptiy previous result
+  // correct = 0;
+  // questions = 0;
+  // uppdateScore(correct,questions); 
 
 });
 startNewGame();
