@@ -1,39 +1,59 @@
 const scoreEl = document.querySelector('#score');
 const imagEl = document.querySelector('#foto_container');
 const answerButtonsEl = document.querySelector('.answers');
-
+const cheatButtonEl = document.querySelector('#cheat-button');
+const nextButtonEl = document.querySelector('#nextButton');
+const quitButtonEl = document.querySelector('#quit-game-button');
+const cheatEl = document.querySelector('#cheat');
 
 // function for shuffle array
-const shuffleArray = (array) => {
+const shuffleArray = ((array) => {
   for (let i = array.length -1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     const temp = array[i];
     array[i] = array[j];
     array[j] = temp;
   }
+});
+
+
+
+// // insert and count points
+const uppdateScore = () => {
+  scoreEl.innerHTML = `You are correct for <strong>${correct}</strong> of ${questions} questions!`;
 };
 
 
-
-// insert and count points
-const uppdateScore = (correct) => {
-  scoreEl.innerHTML = `You are correct for <strong>${correct}</strong> of 10 questions!`;
-};
+let correct;
+let questions;
 
 
 // start new Game　　
 const startNewGame = (() => {
-  //
-  correctAnswer = playGame();// <----------　クイズ処理後の関数呼び出し？
+  // get random students info
+  getQuestions();
+  
+  // reset number of correct answer to 0
+  correct = 0;
 
-  // reset score
-  correct = 0; // <----- 動かない！！！！😫
+  // reset number of questions
+  questions = 0;
+  
+  // reset cheat
+  cheatEl.innerHTML=``;
+
+  uppdateScore();
+  console.log('correct answer in startneewGame:', correctAnswer); 
 });
-uppdateScore();
 
 
-const playGame = (()=>{
-  // shuffle students list in students.js <------ *
+
+let correctAnswer;
+
+//  get questions
+const getQuestions = () => {
+  // shuffle students list in students.js 
+  //console.log('before');
   shuffleArray(students); 
   // output for test
   //console.log(students[1].name); // it's works!👍
@@ -41,58 +61,116 @@ const playGame = (()=>{
   // insert foto in HTML 
   imagEl.innerHTML = `<img class="col-12" src=${students[0].image}>`; //show up a random picture of array[0] 
 
-  let correctAnswer = students[0].name;
+  correctAnswer = students[0].name;
   // output for test if image has correct students name
-  //console.log(students[0].name); // it's works!👍
-
+  console.log('correct answer:', correctAnswer); // it's works!👍 
 
   // insert answer button (atudents name) in HTML
   //shuffule a correct name and 3 more random names.
   let answers = [];
   for(i = 0; i < 4; i++ ){
-    answers.push(students[i].name);  
+    answers.push(students[i].name); 
+    console.log('loop',[i]); // check in answers array
   }
 
+  console.log('answers', answers);
   // shuffle answer buttons
-  shuffleArray(answers);  
+  shuffleArray(answers);
 
   let html = ``;
-  
+
   answers.forEach(answer =>{
     //console.log(answer); // ok👍
     html +=  `<li class="btn btn-outline-secondary col-md-5">${answer}</li>`
   });
   //console.log(html)
-  answerButtonsEl.innerHTML = html;  // <------- *
+  answerButtonsEl.innerHTML = html;  // <------- * new
 
+};
 
-  // add click answer-button event
-  answerButtonsEl.addEventListener('click', e=> {
-    //output for controll 'click'
-    //console.log(`clicked ${e.target.tagName}`,e.target);
+// add click answer-button event
+answerButtonsEl.addEventListener('click', e=> {  
+  
+  //Check if clicked on a LI element
+  if(e.target.tagName === 'LI'){
     
-    //if answer is correct
-    if(e.target.textContent === correctAnswer){
-      console.log("Correct! 🥳"); // <---------　正解したらポイントカウンターcorrect +１
+    const checkbuttonsEl = true;
 
+
+    //output for controll 'click'
+    console.log(`clicked tagName , e.taget: ${e.target.tagName}`,e.target);
+    
+    console.log('correct answer in addEventListener:', correctAnswer);
+      
+    // count questions
+    questions ++;
+    
+    // check if answer is correct
+    console.log({'e.target': e.target.textContent, correctAnswer});
+
+    if(e.target.textContent === correctAnswer){
+      // count correct answer
+      correct ++;
+      console.log("Correct! 🥳");
+      // change button color if answer is correct
+      e.target.classList.remove('btn-outline-secondary');
+      e.target.classList.add('btn-success');
     } else {
-      console.log(" 😩 "); // <---------　ここまで
+      console.log(" Wrong😩 "); 
+      cheatEl.innerHTML=`${correctAnswer}`;
+      // change button color if answer is wrong
+      e.target.classList.remove('btn-outline-secondary');
+      e.target.classList.add('btn-danger');
     }
 
-    playGame();
-  });
+    console.log(typeof checkbuttonsEl);
+    console.log(checkbuttonsEl);
+      // クリックした後他の選択ボタンを押せないようにしたい <--- * new  .disabled?      
+      if(checkbuttonsEl === true){
+        //console.log('clicked'); // ok
+        answerButtonsEl.classList.add('disabled');     
+      }else{
+        answerButtonsEl.classList.remove('disabled');  
+      }
 
+  }
+  
+  uppdateScore(correct, questions);
+  
 });
 
-playGame();
+nextButtonEl.addEventListener('click', e=> {
+  //output for controll 'click'
+  answerButtonsEl.classList.remove('disabled');  
+  console.log(`clicked ${e.target.tagName}`,e.target);
+  getQuestions();
 
+  // reset cheat
+  cheatEl.innerHTML=``;
+});
 
+// quit Game
+quitButtonEl.addEventListener('click', e => {
+  // //output for controll 'click'
+  // console.log(`reset ${e.target.tagName}`,e.target);
+  // // start new game
+  startNewGame();
 
-// クリック後、正解を表示する（正解ボタン=緑、不正解ボタン=赤）
-// use 'filter' and 'map' to check correct/ wrong answer.
+  // // emptiy previous result
+  // correct = 0;
+  // questions = 0;
+  // uppdateScore(correct,questions); 
 
-
-
-
+});
+startNewGame();
 
 // insert cheat-button
+cheatButtonEl.addEventListener('click', e => {
+  cheatEl.innerHTML=`${correctAnswer}`;
+});
+
+// use 'filter' and 'map' to check correct/ wrong answer？
+
+// calculate the highest point
+Math.round(correct / questions * 100) + '%'
+

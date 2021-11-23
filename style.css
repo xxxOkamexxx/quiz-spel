@@ -13,6 +13,9 @@ h1{
 p{
     color: dimgray;
 }
+#cheat{
+    opacity: 0.7;
+}
 #quiz-wrapper{
     text-align: center;
 }
@@ -26,6 +29,9 @@ ul{
 }
 li{
     margin:1% 2% 1% 2%;
+}
+.disabled{
+    pointer-events: none;
 }
 footer{
     background-color: gold;
