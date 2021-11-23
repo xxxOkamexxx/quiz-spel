@@ -176,5 +176,3 @@ cheatButtonEl.addEventListener('click', e => {
 
 // use 'filter' and 'map' to check correct/ wrong answer？
 
-// Probrem! quitの後new gameの最初のページで４択ボタンが押せない
-
