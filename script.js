@@ -119,7 +119,7 @@ answerButtonsEl.addEventListener('click', e=> {
   
 });
 
-
+// クリックした後他の選択ボタンを押せないようにしたい
 
 
 nextButtonEl.addEventListener('click', e=> {
@@ -142,5 +142,5 @@ quitButtonEl.addEventListener('click', e => {
 
 });
 startNewGame();
-// use 'filter' and 'map' to check correct/ wrong answer.
+// use 'filter' and 'map' to check correct/ wrong answer？.
 // insert cheat-button
