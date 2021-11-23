@@ -44,6 +44,7 @@ const startNewGame = (() => {
 
   uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer); 
+  answerButtonsEl.classList.remove('disabled'); 
 
 });
 
@@ -139,6 +140,8 @@ answerButtonsEl.addEventListener('click', e=> {
   
 });
 
+
+// forward to next answer
 nextButtonEl.addEventListener('click', e=> {
   //output for controll 'click'
   answerButtonsEl.classList.remove('disabled');  
@@ -148,6 +151,7 @@ nextButtonEl.addEventListener('click', e=> {
   // reset cheat
   cheatEl.innerHTML=``;
 });
+
 
 // quit Game
 quitButtonEl.addEventListener('click', e => {
@@ -165,9 +169,10 @@ quitButtonEl.addEventListener('click', e => {
     document.querySelector('#answers-container').classList.remove('invisible');
     startNewGame();
   });
-
+  //console.log(answerButtonsEl);
 });
 startNewGame();
+
 
 // insert cheat-button
 cheatButtonEl.addEventListener('click', e => {

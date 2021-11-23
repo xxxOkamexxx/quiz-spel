@@ -10,7 +10,7 @@ header{
 h1{
     color: white;
 }
-p{
+p,h2{
     color: dimgray;
 }
 #cheat{
