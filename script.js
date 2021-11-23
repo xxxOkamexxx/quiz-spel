@@ -149,7 +149,7 @@ nextButtonEl.addEventListener('click', e=> {
   cheatEl.innerHTML=``;
 });
 
-
+// quit Game
 quitButtonEl.addEventListener('click', e => {
   // //output for controll 'click'
   // console.log(`reset ${e.target.tagName}`,e.target);
@@ -169,5 +169,8 @@ cheatButtonEl.addEventListener('click', e => {
   cheatEl.innerHTML=`${correctAnswer}`;
 });
 
-// use 'filter' and 'map' to check correct/ wrong answer？.
+// use 'filter' and 'map' to check correct/ wrong answer？
+
+// calculate the highest point
+Math.round(correct / questions * 100) + '%'
 
