@@ -1,9 +1,10 @@
 const scoreEl = document.querySelector('#score');
 const imagEl = document.querySelector('#foto_container');
 const answerButtonsEl = document.querySelector('.answers');
+const cheatButtonEl = document.querySelector('#cheat-button');
 const nextButtonEl = document.querySelector('#nextButton');
 const quitButtonEl = document.querySelector('#quit-game-button');
-
+const cheatEl = document.querySelector('#cheat');
 
 // function for shuffle array
 const shuffleArray = ((array) => {
@@ -37,6 +38,9 @@ const startNewGame = (() => {
 
   // reset number of questions
   questions = 0;
+  
+  // reset cheat
+  cheatEl.innerHTML=``;
 
   uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer); 
@@ -100,8 +104,10 @@ answerButtonsEl.addEventListener('click', e=> {
       
     // count questions
     questions ++;
+    
     // check if answer is correct
     console.log({'e.target': e.target.textContent, correctAnswer});
+
     if(e.target.textContent === correctAnswer){
       // count correct answer
       correct ++;
@@ -111,6 +117,7 @@ answerButtonsEl.addEventListener('click', e=> {
       e.target.classList.add('btn-success');
     } else {
       console.log(" Wrong😩 "); 
+      cheatEl.innerHTML=`${correctAnswer}`;
       // change button color if answer is wrong
       e.target.classList.remove('btn-outline-secondary');
       e.target.classList.add('btn-danger');
@@ -137,6 +144,9 @@ nextButtonEl.addEventListener('click', e=> {
   answerButtonsEl.classList.remove('disabled');  
   console.log(`clicked ${e.target.tagName}`,e.target);
   getQuestions();
+
+  // reset cheat
+  cheatEl.innerHTML=``;
 });
 
 
@@ -153,5 +163,11 @@ quitButtonEl.addEventListener('click', e => {
 
 });
 startNewGame();
-// use 'filter' and 'map' to check correct/ wrong answer？.
+
 // insert cheat-button
+cheatButtonEl.addEventListener('click', e => {
+  cheatEl.innerHTML=`${correctAnswer}`;
+});
+
+// use 'filter' and 'map' to check correct/ wrong answer？.
+
