@@ -85,13 +85,15 @@ const getQuestions = () => {
 
 // add click answer-button event
 answerButtonsEl.addEventListener('click', e=> {
+  
+  e.preventDefault();
+
   //output for controll 'click'
-  
   console.log(`clicked tagName, e.taget: ${e.target.tagName}`,e.target);
+
   
-  //e.preventDefault(); // <------ ? need it?
   console.log('correct answer in addEventListener:', correctAnswer);
-   
+    
   // count questions
   questions ++;
   // check if answer is correct
@@ -102,19 +104,21 @@ answerButtonsEl.addEventListener('click', e=> {
 
     console.log("Correct! 🥳");
 
+    // change button color if answer is correct
     e.target.classList.remove('btn-outline-secondary');
     e.target.classList.add('btn-success');
 
   } else {
-    console.log(" Wrong😩 "); // <---------　ここまで
+    console.log(" Wrong😩 "); 
 
+    // change button color if answer is wrong
     e.target.classList.remove('btn-outline-secondary');
     e.target.classList.add('btn-danger');
   }
-  // クリック後、正解を表示する（正解ボタン=緑、不正解ボタン=赤）
-
   uppdateScore(correct, questions);
+  
 });
+
 
 
 
@@ -125,7 +129,7 @@ nextButtonEl.addEventListener('click', e=> {
 });
 
 
-quitButtonEl.addEventListener('reset', e => {
+quitButtonEl.addEventListener('click', e => {
   //output for controll 'click'
   console.log(`reset ${e.target.tagName}`,e.target);
   // start new game
