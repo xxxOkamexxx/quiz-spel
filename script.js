@@ -48,7 +48,6 @@ const startNewGame = (() => {
 });
 
 
-
 let correctAnswer;
 
 //  get questions
