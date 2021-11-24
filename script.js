@@ -26,7 +26,7 @@ const uppdateScore = () => {
 
 let correct;
 let questions;
-
+let cheat = 0;
 
 // start new Game　　
 const startNewGame = (() => {
@@ -41,6 +41,7 @@ const startNewGame = (() => {
   
   // reset cheat
   cheatEl.innerHTML=``;
+  cheat = 0;
 
   uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer); 
@@ -52,7 +53,7 @@ const startNewGame = (() => {
 let correctAnswer;
 
 //  get questions
-const getQuestions = () => {
+const getQuestions = (() => {
   // shuffle students list in students.js 
   //console.log('before');
   shuffleArray(students); 
@@ -85,12 +86,12 @@ const getQuestions = () => {
     html +=  `<li class="btn btn-outline-secondary col-md-5">${answer}</li>`
   });
   //console.log(html)
-  answerButtonsEl.innerHTML = html;  // <------- * new
+  answerButtonsEl.innerHTML = html;  
 
-};
+});
 
 // add click answer-button event
-answerButtonsEl.addEventListener('click', e=> {  
+answerButtonsEl.addEventListener('click', e => {  
   
   //Check if clicked on a LI element
   if(e.target.tagName === 'LI'){
@@ -158,18 +159,29 @@ quitButtonEl.addEventListener('click', e => {
   
   // calculate the highest point
   const point = Math.round(correct / questions * 100) + '%';
+
+  const rec = [];
+  rec.push({q:questions, p:point});
   
   // #answers-container invisible
   document.querySelector('#answers-container').classList.add('invisible')
 
-  imagEl.innerHTML = `<h2 class="text-center">YOUR SCORE IS ${point}!</h2><button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+  cheatEl.innerHTML=``;
 
+  // show up score
+  // point(%)
+  imagEl.innerHTML = 
+  `<h2 class="text-center">YOUR SCORE IS ${point}!</h2>
+  <p>You cheat ${cheat} times</p>
+  <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+  
+  // start new game
   document.querySelector('#start-game-button').addEventListener('click', e => {
     // #answers-container visible
     document.querySelector('#answers-container').classList.remove('invisible');
     startNewGame();
   });
-  //console.log(answerButtonsEl);
+  //console.log(answerButtonsEl); // output fot test <-- ok
 });
 startNewGame();
 
@@ -177,7 +189,8 @@ startNewGame();
 // insert cheat-button
 cheatButtonEl.addEventListener('click', e => {
   cheatEl.innerHTML=`${correctAnswer}`;
+  // count cheat
+  cheat ++;
 });
 
-// use 'filter' and 'map' to check correct/ wrong answer？
 
