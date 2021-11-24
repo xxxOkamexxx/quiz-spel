@@ -6,6 +6,7 @@ const nextButtonEl = document.querySelector('#nextButton');
 const quitButtonEl = document.querySelector('#quit-game-button');
 const cheatEl = document.querySelector('#cheat');
 
+
 // function for shuffle array
 const shuffleArray = ((array) => {
   for (let i = array.length -1; i > 0; i--) {
@@ -28,6 +29,7 @@ let correct;
 let questions;
 let cheat = 0;
 
+
 // start new Game　　
 const startNewGame = (() => {
   // get random students info
@@ -44,9 +46,8 @@ const startNewGame = (() => {
   cheat = 0;
 
   uppdateScore();
-  console.log('correct answer in startneewGame:', correctAnswer); 
+  console.log('correct answer in startneewGame:', correctAnswer);   
   answerButtonsEl.classList.remove('disabled'); 
-
 });
 
 
@@ -154,7 +155,7 @@ nextButtonEl.addEventListener('click', e=> {
 });
 
 
-// quit Game
+// quit Game and go to result
 quitButtonEl.addEventListener('click', e => {
   
   // calculate the highest point
@@ -166,19 +167,22 @@ quitButtonEl.addEventListener('click', e => {
   // #answers-container invisible
   document.querySelector('#answers-container').classList.add('invisible')
 
+  document.querySelector('#quiz-wrapper').classList.remove('flex-lg-row');
+
   cheatEl.innerHTML=``;
 
   // show up score
   // point(%)
   imagEl.innerHTML = 
   `<h2 class="text-center">YOUR SCORE IS ${point}!</h2>
-  <p>You cheat ${cheat} times</p>
+  <p>Number of times you have used a cheat: ${cheat}</p>
   <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
   
   // start new game
   document.querySelector('#start-game-button').addEventListener('click', e => {
     // #answers-container visible
     document.querySelector('#answers-container').classList.remove('invisible');
+    document.querySelector('#quiz-wrapper').classList.add('flex-lg-row');
     startNewGame();
   });
   //console.log(answerButtonsEl); // output fot test <-- ok
