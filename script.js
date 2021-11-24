@@ -126,7 +126,7 @@ answerButtonsEl.addEventListener('click', e=> {
 
     console.log(typeof checkbuttonsEl);
     console.log(checkbuttonsEl);
-      // クリックした後他の選択ボタンを押せないようにしたい <--- * new  .disabled?      
+      //  stopp to press any other selection button after clicking it.      
       if(checkbuttonsEl === true){
         //console.log('clicked'); // ok
         answerButtonsEl.classList.add('disabled');     
