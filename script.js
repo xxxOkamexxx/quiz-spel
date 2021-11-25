@@ -182,15 +182,15 @@ quitButtonEl.addEventListener('click', e => {
   // result(%)
   if(questions !== 0){ // if played
     imagEl.innerHTML = 
-    `<h2 class="text-center">${result}% CORRECT!</h2>
+    `<h2 class="text-center font">${result}% CORRECT!</h2>
     <p>Number of times you have used a cheat: ${cheat}</p>
-    <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+    <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
   } else if(questions === 0){ // if not played
     imagEl.innerHTML = 
-    `<h2 class="text-center">OOPS!<br>
+    `<h2 class="text-center font">OOPS!<br>
     YOU HAVEN'T STARTED THIS GAME YET!</h2>
     <p>Please click 'NEW GAME' button.</p>
-    <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+    <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
   }
   
 
