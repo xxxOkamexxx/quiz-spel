@@ -21,7 +21,7 @@ const shuffleArray = ((array) => {
 
 // // insert and count points
 const uppdateScore = () => {
-  scoreEl.innerHTML = `You got <strong>${correct}</strong> correct answer of ${questions} questions!`;
+  scoreEl.innerHTML = `You got <strong>${correct}</strong> correct answers of ${questions} questions!`;
 };
 
 
