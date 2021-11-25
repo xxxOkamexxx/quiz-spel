@@ -21,12 +21,12 @@ const shuffleArray = ((array) => {
 
 // // insert and count points
 const uppdateScore = () => {
-  scoreEl.innerHTML = `You are correct for <strong>${correct}</strong> of ${questions} questions!`;
+  scoreEl.innerHTML = `You got <strong>${correct}</strong> correct answer of ${questions} questions!`;
 };
 
 
-let correct;
-let questions;
+let correct; 
+let questions; 
 let cheat = 0;
 
 
@@ -36,10 +36,10 @@ const startNewGame = (() => {
   getQuestions();
   
   // reset number of correct answer to 0
-  correct = 0;
+  correct = 0; 
 
   // reset number of questions
-  questions = 0;
+  questions = 0; 
   
   // reset cheat
   cheatEl.innerHTML=``;
@@ -163,14 +163,13 @@ nextButtonEl.addEventListener('click', e=> {
 });
 
 
+
 // quit Game and go to result
 quitButtonEl.addEventListener('click', e => {
   
   // calculate the highest point
-  const point = Math.round(correct / questions * 100) + '%';
-
-  const rec = [];
-  rec.push({q:questions, p:point});
+  const result =  Math.round(correct / questions * 100);
+  console.log({'correct':correct, 'questions':questions, 'result':result}); // ⚠️ if correct and questions are '0',result prints 'NaN' 
   
   // #answers-container invisible
   document.querySelector('#answers-container').classList.add('invisible')
@@ -180,12 +179,21 @@ quitButtonEl.addEventListener('click', e => {
   cheatEl.innerHTML=``;
 
   // show up score
-  // point(%)
-  imagEl.innerHTML = 
-  `<h2 class="text-center">YOUR SCORE IS ${point}!</h2>
-  <p>Number of times you have used a cheat: ${cheat}</p>
-  <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+  // result(%)
+  if(questions !== 0){ // if played
+    imagEl.innerHTML = 
+    `<h2 class="text-center">${result}% CORRECT!</h2>
+    <p>Number of times you have used a cheat: ${cheat}</p>
+    <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+  } else if(questions === 0){ // if not played
+    imagEl.innerHTML = 
+    `<h2 class="text-center">OOPS!<br>
+    YOU HAVEN'T STARTED THIS GAME YET!</h2>
+    <p>Please click 'NEW GAME' button.</p>
+    <button type="button" id="start-game-button" class="btn btn-secondary col-5 ">NEW GAME</button>`;
+  }
   
+
   // start new game
   document.querySelector('#start-game-button').addEventListener('click', e => {
     // #answers-container visible
