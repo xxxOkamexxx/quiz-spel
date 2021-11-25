@@ -48,10 +48,12 @@ const startNewGame = (() => {
   uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer);   
   answerButtonsEl.classList.remove('disabled'); 
+
 });
 
 
 let correctAnswer;
+
 
 //  get questions
 const getQuestions = (() => {
@@ -89,16 +91,19 @@ const getQuestions = (() => {
   //console.log(html)
   answerButtonsEl.innerHTML = html;  
 
+  // stopp to press to 'NEXT' button before choose an answer.
+  nextButtonEl.classList.add('disabled');
+
 });
+
 
 // add click answer-button event
 answerButtonsEl.addEventListener('click', e => {  
   
-  //Check if clicked on a LI element
+  // Check if clicked on a LI element
   if(e.target.tagName === 'LI'){
     
     const checkbuttonsEl = true;
-
 
     //output for controll 'click'
     console.log(`clicked tagName , e.taget: ${e.target.tagName}`,e.target);
@@ -108,9 +113,10 @@ answerButtonsEl.addEventListener('click', e => {
     // count questions
     questions ++;
     
+    nextButtonEl.classList.remove('disabled');
+
     // check if answer is correct
     console.log({'e.target': e.target.textContent, correctAnswer});
-
     if(e.target.textContent === correctAnswer){
       // count correct answer
       correct ++;
@@ -128,15 +134,17 @@ answerButtonsEl.addEventListener('click', e => {
 
     console.log(typeof checkbuttonsEl);
     console.log(checkbuttonsEl);
-      //  stopp to press any other selection button after clicking it.      
+      //  stopp to press any other selection button after clicking an answer-butoon.      
       if(checkbuttonsEl === true){
         //console.log('clicked'); // ok
-        answerButtonsEl.classList.add('disabled');     
+        answerButtonsEl.classList.remove('disabled');            
+        
       }else{
         answerButtonsEl.classList.remove('disabled');  
+
       }
 
-  }
+  } 
   
   uppdateScore(correct, questions);
   
@@ -147,7 +155,7 @@ answerButtonsEl.addEventListener('click', e => {
 nextButtonEl.addEventListener('click', e=> {
   //output for controll 'click'
   answerButtonsEl.classList.remove('disabled');  
-  console.log(`clicked ${e.target.tagName}`,e.target);
+  console.log(`clicked ${e.target.tagName}`,e.target); // out put for control
   getQuestions();
 
   // reset cheat
