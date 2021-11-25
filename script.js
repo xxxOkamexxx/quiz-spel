@@ -137,7 +137,7 @@ answerButtonsEl.addEventListener('click', e => {
       //  stopp to press any other selection button after clicking an answer-butoon.      
       if(checkbuttonsEl === true){
         //console.log('clicked'); // ok
-        answerButtonsEl.classList.remove('disabled');            
+        answerButtonsEl.classList.add('disabled');            
         
       }else{
         answerButtonsEl.classList.remove('disabled');  
@@ -153,7 +153,7 @@ answerButtonsEl.addEventListener('click', e => {
 
 // forward to next answer
 nextButtonEl.addEventListener('click', e=> {
-  //output for controll 'click'
+  
   answerButtonsEl.classList.remove('disabled');  
   console.log(`clicked ${e.target.tagName}`,e.target); // out put for control
   getQuestions();
