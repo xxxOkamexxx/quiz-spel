@@ -10,11 +10,17 @@ header{
 .font{
     font-family: 'Chelsea Market', cursive;
 }
+h2,p,li,small{
+    font-family: 'Patrick Hand', cursive;
+}
 h1{
     color: white;
 }
-p,h2{
+p,h2,small{
     color: dimgray;
+}
+p{
+    font-size: 1.5em;
 }
 #cheat{
     opacity: 0.7;

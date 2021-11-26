@@ -7,6 +7,7 @@ const quitButtonEl = document.querySelector('#quit-game-button');
 const cheatEl = document.querySelector('#cheat');
 
 
+
 // function for shuffle array
 const shuffleArray = ((array) => {
   for (let i = array.length -1; i > 0; i--) {
@@ -48,6 +49,8 @@ const startNewGame = (() => {
   uppdateScore();
   console.log('correct answer in startneewGame:', correctAnswer);   
   answerButtonsEl.classList.remove('disabled'); 
+  quitButtonEl.classList.add('disabled');
+  cheatButtonEl.classList.remove('disabled');
 
 });
 
@@ -93,6 +96,8 @@ const getQuestions = (() => {
 
   // stopp to press to 'NEXT' button before choose an answer.
   nextButtonEl.classList.add('disabled');
+  // remove disabled 'CHEAT' button.
+  cheatButtonEl.classList.remove('disabled');
 
 });
 
@@ -114,6 +119,12 @@ answerButtonsEl.addEventListener('click', e => {
     questions ++;
     
     nextButtonEl.classList.remove('disabled');
+    
+    if(questions === 10){
+      quitButtonEl.classList.remove('disabled');
+      nextButtonEl.classList.add('disabled');
+      cheatButtonEl.classList.add('disabled');
+    }
 
     // check if answer is correct
     console.log({'e.target': e.target.textContent, correctAnswer});
@@ -137,11 +148,12 @@ answerButtonsEl.addEventListener('click', e => {
       //  stopp to press any other selection button after clicking an answer-butoon.      
       if(checkbuttonsEl === true){
         //console.log('clicked'); // ok
-        answerButtonsEl.classList.add('disabled');            
+        answerButtonsEl.classList.add('disabled');
+        // stopp to press to 'CHEAT' button after choose an answer. 
+        cheatButtonEl.classList.add('disabled');           
         
       }else{
-        answerButtonsEl.classList.remove('disabled');  
-
+        answerButtonsEl.classList.remove('disabled');
       }
 
   } 
@@ -185,13 +197,7 @@ quitButtonEl.addEventListener('click', e => {
     `<h2 class="text-center font">${result}% CORRECT!</h2>
     <p>Number of times you have used a cheat: ${cheat}</p>
     <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
-  } else if(questions === 0){ // if not played
-    imagEl.innerHTML = 
-    `<h2 class="text-center font">OOPS!<br>
-    YOU HAVEN'T STARTED THIS GAME YET!</h2>
-    <p>Please click 'NEW GAME' button.</p>
-    <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
-  }
+  } 
   
 
   // start new game
@@ -212,5 +218,3 @@ cheatButtonEl.addEventListener('click', e => {
   // count cheat
   cheat ++;
 });
-
-
