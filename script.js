@@ -1,11 +1,17 @@
 const scoreEl = document.querySelector('#score');
+const cheatEl = document.querySelector('#cheat');
 const imagEl = document.querySelector('#foto_container');
 const answerButtonsEl = document.querySelector('.answers');
+const buttonsWrapperEl = document.querySelector('#buttons-wrapper');
+
+
+buttonsWrapperEl.innerHTML = `<button type="button" id="cheat-button" class="btn btn-warning col-3 font">CHEAT</button>
+<button type="button" id="nextButton" class="btn btn-warning col-3 font">NEXT</button>
+<button type="button" id="quit-game-button" class="btn btn-warning col-3 font">RESULT</button>`;
+
 const cheatButtonEl = document.querySelector('#cheat-button');
 const nextButtonEl = document.querySelector('#nextButton');
 const quitButtonEl = document.querySelector('#quit-game-button');
-const cheatEl = document.querySelector('#cheat');
-
 
 
 // function for shuffle array
@@ -30,12 +36,10 @@ let correct;
 let questions; 
 let cheat = 0;
 
-
 // start new Game　　
 const startNewGame = (() => {
   // get random students info
   getQuestions();
-  
   // reset number of correct answer to 0
   correct = 0; 
 
@@ -53,7 +57,6 @@ const startNewGame = (() => {
   cheatButtonEl.classList.remove('disabled');
 
 });
-
 
 let correctAnswer;
 
@@ -91,6 +94,7 @@ const getQuestions = (() => {
     //console.log(answer); // ok👍
     html +=  `<li class="btn btn-outline-secondary col-md-5">${answer}</li>`
   });
+
   //console.log(html)
   answerButtonsEl.innerHTML = html;  
 
@@ -125,7 +129,7 @@ answerButtonsEl.addEventListener('click', e => {
       nextButtonEl.classList.add('disabled');
       cheatButtonEl.classList.add('disabled');
     }
-
+  
     // check if answer is correct
     console.log({'e.target': e.target.textContent, correctAnswer});
     if(e.target.textContent === correctAnswer){
@@ -166,14 +170,15 @@ answerButtonsEl.addEventListener('click', e => {
 // forward to next answer
 nextButtonEl.addEventListener('click', e=> {
   
-  answerButtonsEl.classList.remove('disabled');  
-  console.log(`clicked ${e.target.tagName}`,e.target); // out put for control
-  getQuestions();
+    answerButtonsEl.classList.remove('disabled');  
+    console.log(`clicked ${e.target.tagName}`,e.target); // out put for control
+    getQuestions();
 
   // reset cheat
   cheatEl.innerHTML=``;
+  
+  
 });
-
 
 
 // quit Game and go to result
@@ -198,7 +203,6 @@ quitButtonEl.addEventListener('click', e => {
     <p>Number of times you have used a cheat: ${cheat}</p>
     <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
   } 
-  
 
   // start new game
   document.querySelector('#start-game-button').addEventListener('click', e => {
@@ -208,6 +212,7 @@ quitButtonEl.addEventListener('click', e => {
     startNewGame();
   });
   //console.log(answerButtonsEl); // output fot test <-- ok
+  
 });
 startNewGame();
 
@@ -218,3 +223,5 @@ cheatButtonEl.addEventListener('click', e => {
   // count cheat
   cheat ++;
 });
+
+
