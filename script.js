@@ -36,7 +36,8 @@ let correct;
 let questions; 
 let cheat = 0;
 
-// start new Game　　
+
+// ===== start new Game　=====　
 const startNewGame = (() => {
   // get random students info
   getQuestions();
@@ -51,7 +52,8 @@ const startNewGame = (() => {
   cheat = 0;
 
   uppdateScore();
-  console.log('correct answer in startneewGame:', correctAnswer);   
+  console.log('correct answer in startneewGame:', correctAnswer); 
+  // switch the buttons class  
   answerButtonsEl.classList.remove('disabled'); 
   quitButtonEl.classList.add('disabled');
   cheatButtonEl.classList.remove('disabled');
@@ -61,7 +63,7 @@ const startNewGame = (() => {
 let correctAnswer;
 
 
-//  get questions
+// ===== get questions =====
 const getQuestions = (() => {
   // shuffle students list in students.js 
   //console.log('before');
@@ -106,7 +108,7 @@ const getQuestions = (() => {
 });
 
 
-// add click answer-button event
+// ===== add click answer-button event =====
 answerButtonsEl.addEventListener('click', e => {  
   
   // Check if clicked on a LI element
@@ -167,61 +169,65 @@ answerButtonsEl.addEventListener('click', e => {
 });
 
 
-// forward to next answer
+// ===== forward to next answer =====
 nextButtonEl.addEventListener('click', e=> {
-  
-    answerButtonsEl.classList.remove('disabled');  
-    console.log(`clicked ${e.target.tagName}`,e.target); // out put for control
-    getQuestions();
+    if(e.target.tagName === 'BUTTON'){
+      answerButtonsEl.classList.remove('disabled');  
+      console.log(`clicked ${e.target.tagName}`,e.target); // out put for control
+      getQuestions();
 
-  // reset cheat
-  cheatEl.innerHTML=``;
-  
+      // reset cheat
+      cheatEl.innerHTML=``;
+  }
   
 });
 
 
-// quit Game and go to result
+// ===== quit Game and go to result =====
 quitButtonEl.addEventListener('click', e => {
-  
-  // calculate the highest point
-  const result =  Math.round(correct / questions * 100);
-  console.log({'correct':correct, 'questions':questions, 'result':result}); // ⚠️ if correct and questions are '0',result prints 'NaN' 
-  
-  // #answers-container invisible
-  document.querySelector('#answers-container').classList.add('invisible')
+  if(e.target.tagName === 'BUTTON'){
+    // calculate the highest point
+    const result =  Math.round(correct / questions * 100);
+    console.log({'correct':correct, 'questions':questions, 'result':result}); 
+    
+    // #answers-container invisible
+    document.querySelector('#answers-container').classList.add('invisible')
 
-  document.querySelector('#quiz-wrapper').classList.remove('flex-lg-row');
+    document.querySelector('#quiz-wrapper').classList.remove('flex-lg-row');
 
-  cheatEl.innerHTML=``;
+    cheatEl.innerHTML=``;
 
-  // show up score
-  // result(%)
-  if(questions !== 0){ // if played
-    imagEl.innerHTML = 
-    `<h2 class="text-center font">${result}% CORRECT!</h2>
-    <p>Number of times you have used a cheat: ${cheat}</p>
-    <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
-  } 
+    // show up score
+    // result(%)
+    if(questions !== 0){ 
+      imagEl.innerHTML = 
+      `<h2 class="text-center font">${result}% CORRECT!</h2>
+      <p>Number of times you have used a cheat: ${cheat}</p>
+      <button type="button" id="start-game-button" class="btn btn-warning col-5 font">NEW GAME</button>`;
+    } 
 
-  // start new game
-  document.querySelector('#start-game-button').addEventListener('click', e => {
-    // #answers-container visible
-    document.querySelector('#answers-container').classList.remove('invisible');
-    document.querySelector('#quiz-wrapper').classList.add('flex-lg-row');
-    startNewGame();
-  });
-  //console.log(answerButtonsEl); // output fot test <-- ok
-  
+    // start new game
+    document.querySelector('#start-game-button').addEventListener('click', e => {
+      if(e.target.tagName === 'BUTTON'){
+        // #answers-container visible
+        document.querySelector('#answers-container').classList.remove('invisible');
+        document.querySelector('#quiz-wrapper').classList.add('flex-lg-row');
+      }
+      startNewGame();
+    });
+    //console.log(answerButtonsEl); // output fot test <-- ok
+}
 });
 startNewGame();
 
 
-// insert cheat-button
+// ===== cheat-button =====
 cheatButtonEl.addEventListener('click', e => {
-  cheatEl.innerHTML=`${correctAnswer}`;
-  // count cheat
-  cheat ++;
+  if(e.target.tagName === 'BUTTON'){
+    cheatEl.innerHTML=`${correctAnswer}`;
+    // count cheat
+    cheat ++;
+  }
 });
 
 
